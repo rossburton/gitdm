@@ -54,7 +54,7 @@ FileReport = None
 # -b dir	Specify the base directory to fetch the configuration files
 # -c cfile	Specify a configuration file
 # -C company	Only consider patches from <company>
-# -d		Output individual developer stats
+# -d		Don't output individual developer stats
 # -D		Output date statistics
 # -f file	Write touched-files report to <file>
 # -h hfile	HTML output to hfile
