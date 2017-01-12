@@ -36,7 +36,7 @@ class Hacker:
 
     def emailemployer (self, email, date):
         for i in range (0, len (self.email)):
-            if (email is None) or (self.email[i] == email):
+            if (email is None) or (self.email[i].lower() == email.lower()):
                 for edate, empl in self.employer[i]:
                     if edate > date:
                         return empl
