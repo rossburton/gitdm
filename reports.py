@@ -154,6 +154,25 @@ def ReportByPCEmpl(elist, cscount):
             break
     EndReport()
 
+def ReportByPCEmplCSV(elist, cscount):
+    elist.sort(CompareEPCount)
+    count = 0
+    total = 0
+    for e in elist:
+        total += e.count
+    
+    BeginReport('Top changeset contributors by employer')
+    for e in elist:
+        if e.count != 0:
+            #ReportLine(e.name, e.count, (e.count*100.0)/cscount)
+            print("%s,%s" % (e.name, e.count))
+        count += 1
+        total -= e.count
+        if count >= ListCount:
+            break
+    if total:
+        print("Others,%d" % total)
+    EndReport()
 
 def CompareELChanged(e1, e2):
     return e2.changed - e1.changed
@@ -379,6 +398,9 @@ def EmplReports(elist, totalchanged, cscount):
     ReportByELChanged(elist, totalchanged)
     ReportByESOBs(elist)
     ReportByEHackers(elist)
+
+def EmplReports(elist, totalchanged, cscount):
+    ReportByPCEmplCSV(elist, cscount)
 
 #
 # Who are the unknown hackers?

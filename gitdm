@@ -47,6 +47,8 @@ ReportByFileType = 0
 ReportUnknowns = False
 CompanyFilter = None
 FileReport = None
+DeveloperSum = True
+
 #
 # Options:
 #
@@ -65,6 +67,7 @@ FileReport = None
 # -p prefix Prefix for CSV output
 # -r pattern	Restrict to files matching pattern
 # -s		Ignore author SOB lines
+# -S            developer sum
 # -u		Map unknown employers to '(Unknown)'
 # -U 		Dump unknown hackers in report
 # -x file.csv   Export raw statistics as CSV
@@ -77,7 +80,7 @@ def ParseOpts():
     global DateStats, AuthorSOBs, FileFilter, AkpmOverLt, DumpDB
     global CFName, CSVFile, CSVPrefix,DirName, Aggregate, Numstat
     global ReportByFileType, ReportUnknowns, CompanyFilter, FileReport
-    global HackersCSV
+    global HackersCSV, DeveloperSum
 
     opts, rest = getopt.getopt(sys.argv[1:], 'ab:dC:c:Df:H:h:l:no:p:r:stUuwx:yz')
     for opt in opts:
@@ -112,6 +115,8 @@ def ParseOpts():
             FileFilter = re.compile(opt[1])
         elif opt[0] == '-s':
             AuthorSOBs = 0
+        elif opt[0] == '-S':
+            DeveloperSum=True
         elif opt[0] == '-t':
             ReportByFileType = 1
         elif opt[0] == '-u':
@@ -462,7 +467,6 @@ TotalChanged = TotalAdded = TotalRemoved = 0
 #
 # Snarf changesets.
 #
-print >> sys.stderr, 'Grabbing changesets...\r',
 
 patches = logparser.LogPatchSplitter(sys.stdin)
 printcount = CSCount = 0
